@@ -6,7 +6,12 @@
 
 {% block body %}
     <div>{% trans %}List of Jobs{% endtrans %}</div>
-    {% for job in jobs %}
-        <div>{{ job.title }}</div>
-    {% endfor %}
+    <div>
+        {% for job in jobs %}
+            <a href="{{ path('job_show', {id: job.id}) }}">{{ job.title }}</a>
+        {% endfor %}
+    </div>
+    <a href="{{ path('job_create') }}">
+        {% trans %}Create{% endtrans %}
+    </a>
 {% endblock %}

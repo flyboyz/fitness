@@ -7,4 +7,7 @@
     {{ job.type }}
     {{ job.title }}
     {{ job.description }}
+    <a href="{{ path('job_delete', {id: job.id}) }}">
+        {% trans %}Delete{% endtrans %}
+    </a>
 {% endblock %}
