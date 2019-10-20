@@ -67,18 +67,6 @@ class Job
         return $this;
     }
 
-    public function getMuscles(): ?int
-    {
-        return $this->muscles;
-    }
-
-    public function setMuscles(int $muscles): self
-    {
-        $this->muscles = $muscles;
-
-        return $this;
-    }
-
     public function getType(): ?int
     {
         return $this->type;
