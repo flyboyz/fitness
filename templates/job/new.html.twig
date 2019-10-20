@@ -1,7 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Job!{% endblock %}
+{% block title %}
+    {% trans %}New Job{% endtrans %}
+{% endblock %}
 
 {% block body %}
+    {% trans %}New Job{% endtrans %}
     {{ form(form) }}
 {% endblock %}

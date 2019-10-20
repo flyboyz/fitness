@@ -1,8 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}List of Jobs{% endblock %}
+{% block title %}
+    {% trans %}List of Jobs{% endtrans %}
+{% endblock %}
 
 {% block body %}
+    <div>{% trans %}List of Jobs{% endtrans %}</div>
     {% for job in jobs %}
         <div>{{ job.title }}</div>
     {% endfor %}
