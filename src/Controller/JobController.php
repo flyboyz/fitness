@@ -47,13 +47,13 @@ class JobController extends AbstractController
     }
 
     /**
-     * @Route("/job/new", name="job_new")
+     * @Route("/job/create", name="job_create")
      *
      * @param Request $request
      *
      * @return Response
      */
-    public function new(Request $request)
+    public function create(Request $request)
     {
         $job = new Job();
 
@@ -70,29 +70,9 @@ class JobController extends AbstractController
             return $this->redirectToRoute('jobs_list');
         }
 
-        return $this->render('job/new.html.twig', [
+        return $this->render('job/create.html.twig', [
             'form' => $form->createView(),
             'error' => $form->getErrors()
         ]);
-    }
-
-    /**
-     * @Route("/job/create", name="job_create", methods={"POST"})
-     */
-    public function create()
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $job = (new Job())
-            ->setTitle('Test')
-            ->setDescription('Ergonomic and stylish!')
-            ->setMuscles(1)
-            ->setType(1)
-        ;
-
-        $entityManager->persist($job);
-        $entityManager->flush();
-
-        return new Response('Check out this great product: '.$job->getTitle());
     }
 }
