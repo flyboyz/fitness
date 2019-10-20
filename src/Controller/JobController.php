@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Job;
+use App\Form\Type\JobType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -14,31 +17,61 @@ class JobController extends AbstractController
      */
     public function index()
     {
+        $jobs = $this->getDoctrine()->getRepository(Job::class)
+            ->findAll();
+
         return $this->render('job/index.html.twig', [
-            'controller_name' => 'JobController',
+            'jobs' => $jobs,
         ]);
     }
 
     /**
      * @Route("/job/{id}", name="job_show", methods={"GET"}, requirements={"id"="\d+"})
      *
-     * @param $id
+     * @ParamConverter("job", class="App:Job")
+     * @param Job $job
      *
      * @return Response
      */
-    public function show($id)
+    public function show(Job $job)
     {
-        $job = $this->getDoctrine()
-            ->getRepository(Job::class)
-            ->find($id);
-
         if (!$job) {
             throw $this->createNotFoundException(
-                'No job found for id ' . $id
+                'No job found for id ' . $job->getId()
             );
         }
 
         return new Response('Check out this great product: ' . $job->getTitle());
+    }
+
+    /**
+     * @Route("/job/new", name="job_new")
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function new(Request $request)
+    {
+        $job = new Job();
+
+        $form = $this->createForm(JobType::class, $job);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $job = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($job);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('jobs_list');
+        }
+
+        return $this->render('job/new.html.twig', [
+            'form' => $form->createView(),
+            'error' => $form->getErrors()
+        ]);
     }
 
     /**
