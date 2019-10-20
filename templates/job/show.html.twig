@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}Show Job{% endtrans %}{% endblock %}
+
+{% block body %}
+    <div>{% trans %}Show Job{% endtrans %}</div>
+    {{ job.type }}
+    {{ job.title }}
+    {{ job.description }}
+{% endblock %}

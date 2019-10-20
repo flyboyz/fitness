@@ -41,7 +41,9 @@ class JobController extends AbstractController
             );
         }
 
-        return new Response('Check out this great product: ' . $job->getTitle());
+        return $this->render('job/show.html.twig', [
+            'job' => $job,
+        ]);
     }
 
     /**
