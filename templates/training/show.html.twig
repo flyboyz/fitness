@@ -3,7 +3,16 @@
 {% block title %}{% trans %}Show Training{% endtrans %}{% endblock %}
 
 {% block body %}
-    {{ training.name }}
+    <h2>{{ training.name }}</h2>
+    <div>Jobs:</div>
+    {% if training.jobs is not empty %}
+        {% for job in training.jobs %}
+            <div>{{ job.title }}</div>
+        {% endfor %}
+    {% else %}
+        <div>Empty!</div>
+    {% endif %}
+    <hr>
     <a href="{{ path('training_delete', {id: training.id}) }}">
         {% trans %}Delete{% endtrans %}
     </a>
