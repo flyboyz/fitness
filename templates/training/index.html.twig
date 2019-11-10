@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {% trans %}List of Training{% endtrans %}
+{% endblock %}
+
+{% block body %}
+    <div>{% trans %}List of Training{% endtrans %}</div>
+    <div>
+        {% for training in trainingAll %}
+            <a href="{{ path('training_show', {id: training.id}) }}">{{ training.name }}</a>
+        {% endfor %}
+    </div>
+    <a href="{{ path('training_create') }}">
+        {% trans %}Create{% endtrans %}
+    </a>
+{% endblock %}

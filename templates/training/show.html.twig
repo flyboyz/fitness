@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}Show Training{% endtrans %}{% endblock %}
+
+{% block body %}
+    {{ training.name }}
+    <a href="{{ path('training_delete', {id: training.id}) }}">
+        {% trans %}Delete{% endtrans %}
+    </a>
+{% endblock %}
