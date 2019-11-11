@@ -3,7 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Training;
-use App\Form\Type\TrainingType;
+use App\Entity\TrainingJob;
+use App\Form\TrainingForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -37,13 +38,24 @@ class TrainingController extends AbstractController
     {
         $training = new Training();
 
-        $form = $this->createForm(TrainingType::class, $training);
+        $form = $this->createForm(TrainingForm::class, $training);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $training = $form->getData();
-
             $entityManager = $this->getDoctrine()->getManager();
+
+            $training = $form->getData();
+            $jobs = $form->get('jobs')->getData();
+
+            foreach ($jobs as $key => $job) {
+                $trainingJobs = (new TrainingJob())
+                    ->setTraining($training)
+                    ->setJob($job)
+                    ->setSort($key);
+
+                $entityManager->persist($trainingJobs);
+            }
+
             $entityManager->persist($training);
             $entityManager->flush();
 

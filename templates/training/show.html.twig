@@ -7,7 +7,7 @@
     <div>Jobs:</div>
     {% if training.jobs is not empty %}
         {% for job in training.jobs %}
-            <div>{{ job.title }}</div>
+            <div>{{ job.job.title }}</div>
         {% endfor %}
     {% else %}
         <div>Empty!</div>

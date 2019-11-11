@@ -24,10 +24,7 @@ class Training
     private $name;
 
     /**
-     * @var Job[]|ArrayCollection|Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Job")
-     * @ORM\JoinTable(name="training_jobs")
+     * @ORM\OneToMany(targetEntity="TrainingJob", mappedBy="training", cascade={"remove"})
      */
     private $jobs;
 
@@ -53,8 +50,15 @@ class Training
         return $this;
     }
 
-    public function getJobs(): Collection
+    public function getJobs()
     {
         return $this->jobs;
+    }
+
+    public function setJobs($job): self
+    {
+        $this->jobs[] = $job;
+
+        return $this;
     }
 }

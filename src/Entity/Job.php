@@ -38,6 +38,11 @@ class Job
      */
     private $type;
 
+    /**
+     * @ORM\OneToMany(targetEntity="TrainingJob", mappedBy="job")
+     */
+    private $trainingJob;
+
     public function getId(): ?int
     {
         return $this->id;

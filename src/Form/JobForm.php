@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\Type;
+namespace App\Form;
 
 use App\Entity\Job;
 use App\Enums\JobEnum;
@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class JobType extends AbstractType
+class JobForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

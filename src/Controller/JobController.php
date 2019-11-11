@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Job;
-use App\Form\Type\JobType;
+use App\Form\JobForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -37,7 +37,7 @@ class JobController extends AbstractController
     {
         $job = new Job();
 
-        $form = $this->createForm(JobType::class, $job);
+        $form = $this->createForm(JobForm::class, $job);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
