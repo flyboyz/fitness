@@ -39,7 +39,7 @@ class Job
     private $type;
 
     /**
-     * @ORM\OneToMany(targetEntity="TrainingJob", mappedBy="job")
+     * @ORM\OneToMany(targetEntity="TrainingJob", mappedBy="job", cascade={"remove"})
      */
     private $trainingJob;
 
